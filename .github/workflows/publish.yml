@@ -4,7 +4,7 @@ on:
     branches: [main]
   workflow_dispatch:
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 concurrency:
@@ -18,19 +18,6 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - name: Restore original website images
-        shell: bash
-        run: |
-          if compgen -G 'website-assets.part*' > /dev/null; then
-            cat website-assets.part* > "$RUNNER_TEMP/assets.zip"
-            unzip -q -o "$RUNNER_TEMP/assets.zip" -d .
-            git config user.name 'github-actions[bot]'
-            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git add Characters
-            git rm website-assets.part*
-            git commit -m 'Save all original character and classroom assets'
-            git push
-          fi
       - name: Prepare site files
         shell: bash
         run: |
