@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ICT SHSM - AY Jackson SS</title>
+  <link rel="icon" type="image/png" href="ICT%20SHSM%20favicon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body id="top">
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="ICT SHSM - AY Jackson SS home">
+      <span class="logo" aria-hidden="true"></span>
+      <div><strong>ICT SHSM - AY Jackson SS</strong><br><small>Find your thing. Build your future.</small></div>
+    </a>
+    <button class="menu-toggle" id="menu-toggle" type="button" aria-controls="tabs" aria-expanded="false"
+      aria-label="Open navigation menu"><span></span><span></span><span></span></button>
+    <nav class="tabs" id="tabs">
+      <a href="#coop-courses">Co-op &amp; Courses</a><a href="#projects">Capstone</a><a href="#components">The
+        Journey</a><a href="#benefits">Why It’s Worth It</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
+    </nav>
+  </header>
+  <div class="hero-scroll-stage">
+    <section class="hero placeholder-character background-enter">
+      <div>
+        <h1 id="hero-title"><span class="headline-line">Make more of</span><span class="headline-line">what you <span class="headline-accent">love</span></span></h1>
+        <p class="sub">Animators, coders, designers, engineers. If you build it, you belong here.</p>
+        <div class="btns"><button class="p">Join SHSM →</button><button>Learn More</button></div>
+        <div class="label">CHOOSE YOUR STORY</div>
+        <div class="cards" id="cards" role="group" aria-label="Choose your character"></div>
+      </div>
+      <div class="stage">
+        <div class="figure"></div>
+        <div class="character-copy">
+          <h2 id="t"></h2>
+          <div class="chips" id="c"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <main class="canvas" id="more">
+    <section class="program-section courses-section" id="coop-courses" aria-labelledby="coop-title">
+      <div class="bundle-intro">
+        <p class="section-kicker">COURSES &amp; CO-OP</p>
+        <h2 id="coop-title">From classroom to career.</h2>
+        <p>Explore courses that build on what you love, discover your pathway, and take your skills beyond the classroom.</p>
+      </div>
+      <div class="bundle-workspace">
+        <div class="bundle-toolbar"><div><span class="bundle-total">9</span> credit pathway <span class="plan-mode" id="plan-mode">Suggested pathway</span></div><button type="button" id="restore-pathway">Restore suggestions</button></div>
+        <p class="bundle-caption">Explore your options. Selections are plans, not enrollment or earned credits.</p>
+        <div class="credit-journey" id="credit-journey" aria-label="Plan your nine-credit ICT SHSM bundle"></div>
+        <div class="bundle-explorer" id="bundle-explorer" role="region" aria-labelledby="explorer-title" hidden>
+          <div class="explorer-heading"><div><p class="explorer-kicker" id="explorer-category"></p><h3 id="explorer-title"></h3></div><button type="button" id="close-explorer" aria-label="Close course explorer">×</button></div>
+          <p id="explorer-description"></p><div id="explorer-options"></div>
+        </div>
+        <p class="bundle-feedback" id="bundle-feedback" role="status" aria-live="polite"></p>
+
+      </div>
+      <figure class="classroom-photo"><img id="course-classroom-image" src="Characters/Classrooms/animator.png" alt="Animator student learning in an ICT classroom" width="1920" height="1080" loading="lazy" decoding="async"></figure>
+    </section>
+
+    <section class="program-section section-reverse" id="projects" aria-labelledby="projects-title">
+      <div class="section-image section-image-hidden" aria-hidden="true"></div>
+      <div class="section-content">
+        <p class="section-kicker">02 / MAKE SOMETHING REAL</p>
+        <h2 id="projects-title">Capstone Project</h2>
+        <p>Placeholder overview of a portfolio-worthy major project and its industry mentorship experience.</p>
+      </div>
+    </section>
+
+    <section class="program-section" id="components" aria-labelledby="components-title">
+      <div class="section-image section-image-hidden" aria-hidden="true"></div>
+      <div class="section-content">
+        <p class="section-kicker">03 / EXPLORE THE COMPONENTS</p>
+        <h2 id="components-title">The Rest of the Journey</h2>
+        <div class="placeholder-list">
+          <div>
+            <h3>Industry Certifications</h3>
+            <p>Placeholder overview of available certifications.</p>
+          </div>
+          <div>
+            <h3>Reach-Ahead Visits</h3>
+            <p>Placeholder overview of university and college visits.</p>
+          </div>
+          <div>
+            <h3>OSSD Red Seal</h3>
+            <p>Placeholder overview of the Red Seal recognition.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="program-section section-reverse" id="benefits" aria-labelledby="benefits-title">
+      <div class="section-image section-image-hidden" aria-hidden="true"></div>
+      <div class="section-content">
+        <p class="section-kicker">04 / LOOK AHEAD</p>
+        <h2 id="benefits-title">Why It’s Worth It</h2>
+        <p>Placeholder overview of networking, resume-building, and confidence for post-secondary pathways.</p>
+      </div>
+    </section>
+
+    <section class="program-section" id="faq" aria-labelledby="faq-title">
+      <div class="section-image section-image-hidden" aria-hidden="true"></div>
+      <div class="section-content">
+        <p class="section-kicker">05 / GOOD TO KNOW</p>
+        <h2 id="faq-title">Frequently Asked Questions</h2>
+        <div class="faq-list">
+          <details>
+            <summary>Does it cost anything?</summary>
+            <p>Placeholder answer about program costs.</p>
+          </details>
+          <details>
+            <summary>Do I need prior coding experience?</summary>
+            <p>Placeholder answer about coding experience and pathways for beginners.</p>
+          </details>
+          <details>
+            <summary>How much extra work is it?</summary>
+            <p>Placeholder answer about workload and time commitments.</p>
+          </details>
+          <details>
+            <summary>What pathways can this lead to?</summary>
+            <p>Placeholder answer about possible post-secondary and career pathways.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="program-section section-reverse" id="contact" aria-labelledby="contact-title">
+      <div class="section-image section-image-hidden" aria-hidden="true"></div>
+      <div class="section-content">
+        <p class="section-kicker">06 / TAKE THE NEXT STEP</p>
+        <h2 id="contact-title">Contact &amp; Next Steps</h2>
+        <p>Teacher: [Teacher name and contact]</p>
+        <p>Guidance counselor: [Counselor name and contact]</p>
+        <p>Enrollment: [Placeholder enrollment guidance]</p>
+        <p>Next steps: [Placeholder instructions]</p>
+      </div>
+    </section>
+  </main>
+  <section class="join-cta" aria-labelledby="join-cta-title">
+    <img src="join%20ict%20shsm.jpg" alt="Join ICT SHSM easter egg image">
+    <p class="join-cta-note">&ldquo;Funny easter egg image&rdquo;</p>
+    <h2 id="join-cta-title">Ready to start your tech journey?</h2>
+    <a class="p join-cta-button" href="#contact">Join SHSM &rarr;</a>
+  </section>
+  <footer class="site-footer">
+    <p>ICT Specialist High Skills Major · A.Y. Jackson Secondary School</p>
+    <p>A.Y. Jackson Secondary School</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+
+</html>
