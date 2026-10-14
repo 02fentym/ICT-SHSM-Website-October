@@ -1227,9 +1227,18 @@ function render(){
   const selectedTheme=hasUserSelected?roles[cur][0]:"";
   const theme=selectedTheme==="Game Programmer"?"programmer":selectedTheme==="Audio Engineer"?"sound-engineer":selectedTheme?selectedTheme.toLowerCase().replaceAll(" ","-"):"default";
   document.body.dataset.theme=theme;
+  updateWorldMotion();
   document.documentElement.dataset.theme=theme;
   const selectedRole=hasUserSelected?roles[cur][0]:"";
   renderCoursePathway(selectedRole);
+  const capstoneRole=selectedRole||'Animator';
+  const capstoneImage=document.getElementById('capstone-image');
+  const capstonePath=`Characters/Projects/${capstoneRole.toLowerCase()} project.jpeg`;
+  capstoneImage.src=encodeURI(capstonePath);
+  capstoneImage.alt=`${capstoneRole} developing a personal capstone project`;
+  capstoneImage.parentElement.style.setProperty('--classroom-scene',`url("${encodeURI(capstonePath)}")`);
+  document.getElementById('projects').dataset.copySide=['Programmer','Video Producer'].includes(capstoneRole)?'right':'left';
+
   characterRoomSections.forEach(section=>{
     section.classList.toggle("unselected-room-active",!hasUserSelected);
     section.classList.toggle("animator-room-active",selectedRole==="Animator");
@@ -1308,6 +1317,7 @@ function updateHeaderOnScroll(){
   const useParallax=window.matchMedia("(min-width: 1025px)").matches;
   const parallaxOffset=reduceMotion||!useParallax?0:window.scrollY*0.18;
   hero.style.setProperty("--hero-parallax-offset",`${parallaxOffset}px`);
+  updateWorldMotion();
 }
 let scrollUpdatePending=false;
 window.addEventListener("scroll",()=>{
@@ -1319,5 +1329,32 @@ window.addEventListener("scroll",()=>{
   });
 },{passive:true});
 window.matchMedia("(max-width: 1024px)").addEventListener("change",()=>render());
+/* Shared scene motion engine; Animator is the first visual template. */
+const worldMotionPreference=window.matchMedia('(prefers-reduced-motion: reduce)');
+const worldScenes=[hero,document.getElementById('coop-courses'),document.getElementById('projects')];
+function updateWorldMotion(){
+ const enabled=document.body.dataset.theme==='animator'&&!worldMotionPreference.matches;
+ const desktop=window.innerWidth>1024;
+ const viewport=window.innerHeight;
+ const clamp=(value,limit)=>Math.max(-limit,Math.min(limit,value));
+ worldScenes.forEach((scene,index)=>{
+  const rect=scene.getBoundingClientRect();
+  const progress=(viewport/2-(rect.top+rect.height/2));
+  const offset=enabled?clamp(progress*(desktop?.065:.02),desktop?32:10):0;
+  scene.style.setProperty('--world-scene-depth',`${offset}px`);
+  if(index===0){
+   scene.style.setProperty('--world-hero-depth',`${enabled?clamp(-rect.top*.12,65):0}px`);
+   scene.style.setProperty('--world-character-depth',`${enabled&&desktop?clamp(-rect.top*.045,24):0}px`);
+  }
+ });
+}
+if('IntersectionObserver' in window){
+ const worldObserver=new IntersectionObserver(entries=>entries.forEach(entry=>entry.target.classList.toggle('is-in-view',entry.isIntersecting)),{threshold:.12});
+ document.querySelectorAll('.bundle-intro,#projects .capstone-copy').forEach(copy=>{copy.classList.add('world-reveal');worldObserver.observe(copy);});
+ document.body.classList.add('world-motion-ready');
+}
+worldMotionPreference.addEventListener('change',updateWorldMotion);
+window.addEventListener('resize',updateWorldMotion,{passive:true});
 updateHeaderOnScroll();
 render();
+updateWorldMotion();

@@ -374,3 +374,79 @@ body .card-title{transition:color .25s ease}
 .course-option .course-option-status{grid-column:2;grid-row:2;order:initial;font-size:10px;color:rgba(255,255,255,.85);text-align:right;white-space:nowrap}
 .course-option .course-option-note{grid-column:1/-1;order:initial;font-size:10px;color:rgba(255,255,255,.65)}
 #coop-courses .course-option:disabled{opacity:.6}
+
+/* Animator world prototype: shared atmospheric edges connect the first scenes. */
+body[data-theme="animator"]{--world-ground:#0b1219;--world-seam:110px}
+body[data-theme="animator"] .canvas{padding-top:0;background:var(--world-ground)}
+body[data-theme="animator"] .hero{transform:none;background:var(--world-ground)}
+body[data-theme="animator"] .hero::before{transform:translate3d(0,var(--world-hero-depth,0px),0);inset:-70px 0;mask-image:linear-gradient(to bottom,#000 0%,#000 70%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 70%,transparent 100%)}
+body[data-theme="animator"] .hero::after{content:"";position:absolute;z-index:0;inset:auto 0 0;height:var(--world-seam);background:linear-gradient(transparent,var(--world-ground));pointer-events:none}
+body[data-theme="animator"] .hero .stage{transform:translate3d(0,var(--world-character-depth,0px),0)}
+body[data-theme="animator"] #coop-courses,body[data-theme="animator"] #projects{border-bottom:0}
+body[data-theme="animator"] #coop-courses::after{display:none}
+body[data-theme="animator"] .classroom-photo{top:-44px;height:calc(100% + 88px);mask-image:linear-gradient(to bottom,transparent,#000 100px,#000 calc(100% - 130px),transparent);-webkit-mask-image:linear-gradient(to bottom,transparent,#000 100px,#000 calc(100% - 130px),transparent)}
+body[data-theme="animator"] .classroom-photo img{top:44px;transform:translate3d(0,var(--world-scene-depth,0px),0)}
+body[data-theme="animator"] #projects::before{top:-80px;height:calc(100% + 160px);background-position:center calc(50% + var(--world-scene-depth,0px));mask-image:linear-gradient(to bottom,transparent,#000 160px,#000 calc(100% - 160px),transparent);-webkit-mask-image:linear-gradient(to bottom,transparent,#000 160px,#000 calc(100% - 160px),transparent)}
+body[data-theme="animator"] #projects::after{inset:-80px auto -80px 50%;height:auto;width:100vw;background:linear-gradient(90deg,rgba(11,18,25,.8),rgba(11,18,25,.22) 60%,transparent);z-index:-1}
+body[data-theme="animator"] #projects .section-content{background:rgba(11,18,25,.28);border-color:rgba(255,255,255,.12);text-shadow:0 2px 20px rgba(0,0,0,.45)}
+/* Reveal copy without moving the credit rail or its fixed popover. */
+body.world-motion-ready[data-theme="animator"] .world-reveal{opacity:.45;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease}
+body.world-motion-ready[data-theme="animator"] .world-reveal.is-in-view,body.world-motion-ready[data-theme="animator"] .world-reveal:focus-within{opacity:1;transform:none}
+@media(max-width:1024px){body[data-theme="animator"]{--world-seam:75px}body[data-theme="animator"] .hero .stage{transform:none}}
+@media(prefers-reduced-motion:reduce){
+ body[data-theme="animator"] .hero::before,body[data-theme="animator"] .hero .stage,body[data-theme="animator"] .classroom-photo img{transform:none}
+ body.world-motion-ready[data-theme="animator"] .world-reveal{opacity:1;transform:none;transition:none}
+}
+
+/* Mobile scene edges: fade each image itself, including later Animator rooms. */
+@media(max-width:800px){
+ body[data-theme="animator"]{--world-seam:110px}
+ body[data-theme="animator"] .classroom-photo img{mask-image:linear-gradient(to bottom,transparent,#000 50px,#000 65%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,transparent,#000 50px,#000 65%,transparent 100%)}
+ body[data-theme="animator"] .classroom-photo::before{background-color:var(--world-ground)}
+ body[data-theme="animator"] .program-section{border-bottom:0}
+ body[data-theme="animator"] .program-section:not(#coop-courses)::before{top:-60px;height:calc(100% + 120px);mask-image:linear-gradient(to bottom,transparent,#000 140px,#000 calc(100% - 140px),transparent);-webkit-mask-image:linear-gradient(to bottom,transparent,#000 140px,#000 calc(100% - 140px),transparent)}
+ body[data-theme="animator"] .program-section:not(#projects)::after{display:none}
+ body[data-theme="animator"] #projects::after{top:-60px;bottom:-60px;mask-image:linear-gradient(to bottom,transparent,#000 140px,#000 calc(100% - 140px),transparent);-webkit-mask-image:linear-gradient(to bottom,transparent,#000 140px,#000 calc(100% - 140px),transparent)}
+}
+
+/* Mobile courses: reserve the classroom scene above all text and controls. */
+@media(max-width:600px){
+ #coop-courses{--mobile-scene-height:56.25vw;min-height:max(720px,calc(56.25vw + 460px));height:max(720px,calc(56.25vw + 460px));padding-top:0}
+ #coop-courses .bundle-intro{padding-top:calc(var(--mobile-scene-height) + 24px)}
+ #coop-courses .bundle-workspace{position:relative;top:auto;left:auto;right:auto;margin-top:24px;width:100%}
+ #coop-courses .classroom-photo::after{background:linear-gradient(to bottom,rgba(7,12,20,.12),rgba(7,12,20,.08) calc(var(--mobile-scene-height)*.65),rgba(7,12,20,.92) calc(var(--mobile-scene-height) + 24px),rgba(7,12,20,.96))}
+ #coop-courses .classroom-photo img{top:0;transform:none}
+ body[data-theme="animator"] #coop-courses .classroom-photo{top:0;height:100%;mask-image:linear-gradient(to bottom,transparent,#000 35px,#000 calc(100% - 100px),transparent);-webkit-mask-image:linear-gradient(to bottom,transparent,#000 35px,#000 calc(100% - 100px),transparent)}
+ body[data-theme="animator"] #coop-courses .classroom-photo img{top:0;transform:none;mask-image:linear-gradient(to bottom,#000 75%,transparent);-webkit-mask-image:linear-gradient(to bottom,#000 75%,transparent)}
+}
+
+/* Shared capstone scene: identity-specific artwork, one editorial layout. */
+#projects.capstone-section{display:flex;align-items:center;min-height:max(820px,56.25vw);padding:76px 0;border:0}
+#projects.capstone-section::before,#projects.capstone-section::after{display:none}
+.capstone-copy{position:relative;z-index:1;max-width:440px;color:#fff}
+#projects[data-copy-side="right"] .capstone-copy{margin-left:auto}
+.capstone-copy .section-kicker{font-size:10px;line-height:1.5;color:rgba(255,255,255,.75)}
+.capstone-copy h2{margin:0 0 18px;font-size:clamp(34px,3.5vw,52px);line-height:1.08;font-weight:600;letter-spacing:-.025em}
+.capstone-lead{font-size:21px;line-height:1.4;margin:0 0 12px}
+.capstone-description{font-size:15px;line-height:1.65;color:rgba(255,255,255,.8);margin:0}
+.capstone-steps{display:grid;grid-template-columns:1fr 1fr;gap:22px 18px;list-style:none;margin:28px 0;padding:0}
+.capstone-steps li{display:flex;gap:10px;align-items:flex-start}
+.capstone-steps li>span{font-size:11px;color:rgba(255,255,255,.55);padding-top:3px}
+.capstone-steps h3{font-size:14px;font-weight:600;margin:0 0 5px}
+.capstone-steps p{font-size:12px;line-height:1.55;color:rgba(255,255,255,.75);margin:0}
+.capstone-outcome{border-top:1px solid rgba(255,255,255,.22);padding-top:18px}
+.capstone-outcome strong{font-size:16px;font-weight:600}
+.capstone-outcome p{margin:8px 0 0;font-size:13px;line-height:1.65;color:rgba(255,255,255,.8)}
+#projects .capstone-photo{top:-44px;height:calc(100% + 88px);mask-image:linear-gradient(to bottom,transparent,#000 100px,#000 calc(100% - 100px),transparent);-webkit-mask-image:linear-gradient(to bottom,transparent,#000 100px,#000 calc(100% - 100px),transparent)}
+#projects .capstone-photo img{top:44px;width:100%;height:auto;transform:translate3d(0,var(--world-scene-depth,0px),0)}
+#projects .capstone-photo::after{background:linear-gradient(90deg,rgba(7,12,20,.94),rgba(7,12,20,.74) 32%,rgba(7,12,20,.08) 65%),linear-gradient(0deg,rgba(7,12,20,.75),transparent 65%)}
+#projects[data-copy-side="right"] .capstone-photo::after{background:linear-gradient(270deg,rgba(7,12,20,.94),rgba(7,12,20,.74) 32%,rgba(7,12,20,.08) 65%),linear-gradient(0deg,rgba(7,12,20,.75),transparent 65%)}
+@media(max-width:800px){
+ #projects.capstone-section{display:block;min-height:0;padding:calc(55.81vw + 24px) 0 72px}
+ #projects .capstone-copy{max-width:none;margin:0}
+ #projects .capstone-photo{top:0;height:100%;mask-image:linear-gradient(to bottom,transparent,#000 30px,#000 calc(100% - 80px),transparent);-webkit-mask-image:linear-gradient(to bottom,transparent,#000 30px,#000 calc(100% - 80px),transparent)}
+ #projects .capstone-photo img{top:0;transform:none;mask-image:linear-gradient(to bottom,#000 78%,transparent);-webkit-mask-image:linear-gradient(to bottom,#000 78%,transparent)}
+ #projects .capstone-photo::after,#projects[data-copy-side="right"] .capstone-photo::after{background:linear-gradient(to bottom,rgba(7,12,20,.05),rgba(7,12,20,.05) 36vw,rgba(7,12,20,.94) calc(55.81vw + 24px),rgba(7,12,20,.97))}
+ .capstone-copy h2{font-size:34px}.capstone-lead{font-size:19px}
+}
+@media(prefers-reduced-motion:reduce){#projects .capstone-photo img{transform:none}}
